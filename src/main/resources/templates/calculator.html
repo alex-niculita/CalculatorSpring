@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Калькулятор</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+  div {
+    text-align: center;
+  }
+  .center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .width {
+    width: 50%;
+  }
+  .marg {
+    margin-bottom: 7px;
+  }
+</style>
+</head>
+<body>
+<div>
+  <h1>Добро пожаловать в калькулятор</h1>
+  <hr class="width" >
+  <h3>Введите числа:</h3>
+  <form action="calculator" method="post">
+
+    <input class="marg" type="text" name="number1" placeholder="Первое число"/>
+
+    <select class="marg" name="operation" required>
+      <option selected value="+">сложить</option>
+      <option value="-">отнять</option>
+      <option value="*">умножить</option>
+      <option value="/">разделить</option>
+    </select>
+
+    <input class="marg" type="text" name="number2" placeholder="Второе число"/>
+
+    <input type="submit" value="Посчитать"/>
+    <h3 th:text="${resultMessage}" ></h3>
+
+      </form>
+    </div>
+
+    <footer><hr class="width" ></footer>
+
+    <div>
+      <h4>История:</h4>
+
+      <table class="center">
+        <tbody>
+        <tr th:if="${units.isEmpty()}">
+          <td colspan="2">Пока ничего нет</td>
+        </tr>
+        <tr th:each="unit : ${units}">
+          <td><p th:text="${unit.getMessage()}"></p></td>
+          <td><a th:href="@{calculator/delete/{type}(type=${unit.getId()})}" text=" [Х]" value=" [X]"> [X]</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    </body>
+    </html>
